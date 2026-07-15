@@ -20,6 +20,8 @@ sns.set_style('whitegrid')
 
 @st.cache_data
 def load_data():
+    st.write('Months in loaded file:')
+    st.write(df['MONTH'].value_counts().sort_index())
     return pd.read_csv('small_clean_data.csv')
 
 
