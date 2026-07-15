@@ -18,28 +18,27 @@ sns.set_style('whitegrid')
 
 # LOAD DATA AND MODELS
 
-
 @st.cache_data
 def load_data():
-    return pd.read_csv("small_clean_data_v2.csv")
-
-
-df = load_data()
-model_classification, model_regression = load_models()
-
-    
+    return pd.read_csv('small_clean_data_v2.csv')
 
 
 @st.cache_resource
 def load_models():
-    classification_model = joblib.load('xgb_classification_model.pkl')
-    regression_model = joblib.load('xgb_regression_model.pkl')
+    classification_model = joblib.load(
+        'xgb_classification_model.pkl'
+    )
+
+    regression_model = joblib.load(
+        'xgb_regression_model.pkl'
+    )
+
     return classification_model, regression_model
 
 
 df = load_data()
-model_classification, model_regression = load_models()
 
+model_classification, model_regression = load_models()
 
 # MONTH NAMES
 
