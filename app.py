@@ -20,18 +20,17 @@ sns.set_style('whitegrid')
 
 @st.cache_data
 def load_data():
-    return pd.read_csv('small_clean_data_v2.csv')
+    return pd.read_csv(
+        'data/small_clean_data_v2.csv')
 
 
 @st.cache_resource
 def load_models():
     classification_model = joblib.load(
-        'xgb_classification_model.pkl'
-    )
+        'models/xgb_classification_model.pkl')
 
     regression_model = joblib.load(
-        'xgb_regression_model.pkl'
-    )
+        'models/xgb_regression_model.pkl')
 
     return classification_model, regression_model
 
