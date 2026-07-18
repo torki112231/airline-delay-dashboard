@@ -456,13 +456,14 @@ with tab3:
         day_of_week = flight_date.isoweekday()
 
     with col2:
-        scheduled_departure = st.number_input(
-            'Scheduled Departure',
-            min_value=0,
-            max_value=2359,
-            value=800
+        departure_time = st.time_input(
+            'Scheduled Departure Time'
         )
-
+        
+        scheduled_departure = (
+            departure_time.hour * 100
+            + departure_time.minute
+        )
         scheduled_time = st.number_input(
             'Scheduled Time (Minutes)',
             min_value=1,
