@@ -443,110 +443,109 @@ with tab3:
 
     col1, col2 = st.columns(2)
 
-   with col1:
-       flight_date = st.date_input('Flight Date')
-       month = flight_date.month
-       day = flight_date.day
-       day_of_week = flight_date.isoweekday()
-       
-   with col2:
-       scheduled_departure = st.number_input(
-           'Scheduled Departure',
-           min_value=0,
-           max_value=2359,
-           value=800
-       )
-       
-       scheduled_time = st.number_input(
-           'Scheduled Time (Minutes)',
-           min_value=1,
-           max_value=1000,
-           value=120
-       )
-       
-       distance = st.number_input(
-           'Distance',
-           min_value=1,
-           max_value=6000,
-           value=500
-       )
+    with col1:
+        flight_date = st.date_input('Flight Date')
 
+        month = flight_date.month
+        day = flight_date.day
+        day_of_week = flight_date.isoweekday()
 
-if prediction_type == 'Classification':
-
-    airline = st.selectbox(
-        'Airline',
-        sorted(df['AIRLINE'].dropna().unique())
-    )
-
-    if st.button('Predict Flight Status'):
-
-        model_features = (
-            model_classification
-            .get_booster()
-            .feature_names
+    with col2:
+        scheduled_departure = st.number_input(
+            'Scheduled Departure',
+            min_value=0,
+            max_value=2359,
+            value=800
         )
 
-        classification_input = pd.DataFrame(
-            0,
-            index=[0],
-            columns=model_features
+        scheduled_time = st.number_input(
+            'Scheduled Time (Minutes)',
+            min_value=1,
+            max_value=1000,
+            value=120
         )
 
-        classification_input.loc[0, 'MONTH'] = month
-        classification_input.loc[0, 'DAY'] = day
-        classification_input.loc[0, 'DAY_OF_WEEK'] = day_of_week
-        classification_input.loc[0, 'SCHEDULED_DEPARTURE'] = scheduled_departure
-        classification_input.loc[0, 'SCHEDULED_TIME'] = scheduled_time
-        classification_input.loc[0, 'DISTANCE'] = distance
-
-        airline_column = f'AIRLINE_{airline}'
-
-        if airline_column in classification_input.columns:
-            classification_input.loc[0, airline_column] = 1
-
-        prediction = model_classification.predict(
-            classification_input
-        )[0]
-
-        if prediction == 1:
-            st.error('Prediction: Delayed')
-        else:
-            st.success('Prediction: On Time')
-
-
-else:
-
-    departure_delay = st.number_input(
-        'Departure Delay (Minutes)',
-        min_value=-100,
-        max_value=2000,
-        value=0
-    )
-
-    if st.button('Predict Arrival Delay'):
-
-        regression_input = pd.DataFrame(
-            [[
-                departure_delay,
-                distance,
-                month,
-                day,
-                day_of_week
-            ]],
-            columns=[
-                'DEPARTURE_DELAY',
-                'DISTANCE',
-                'MONTH',
-                'DAY',
-                'DAY_OF_WEEK'
-            ]
+        distance = st.number_input(
+            'Distance',
+            min_value=1,
+            max_value=6000,
+            value=500
         )
 
-        predicted_delay = model_regression.predict(
-            regression_input
-        )[0]
+    if prediction_type == 'Classification':
 
-        st.info(
-            f'Predicted Arrival Delay: {predicted_delay:.2f} minutes'
+        airline = st.selectbox(
+            'Airline',
+            sorted(df['AIRLINE'].dropna().unique())
         )
+
+        if st.button('Predict Flight Status'):
+
+            model_features = (
+                model_classification
+                .get_booster()
+                .feature_names
+            )
+
+            classification_input = pd.DataFrame(
+                0,
+                index=[0],
+                columns=model_features
+            )
+
+            classification_input.loc[0, 'MONTH'] = month
+            classification_input.loc[0, 'DAY'] = day
+            classification_input.loc[0, 'DAY_OF_WEEK'] = day_of_week
+            classification_input.loc[0, 'SCHEDULED_DEPARTURE'] = scheduled_departure
+            classification_input.loc[0, 'SCHEDULED_TIME'] = scheduled_time
+            classification_input.loc[0, 'DISTANCE'] = distance
+
+            airline_column = f'AIRLINE_{airline}'
+
+            if airline_column in classification_input.columns:
+                classification_input.loc[0, airline_column] = 1
+
+            prediction = model_classification.predict(
+                classification_input
+            )[0]
+
+            if prediction == 1:
+                st.error('Prediction: Delayed')
+            else:
+                st.success('Prediction: On Time')
+
+    else:
+
+        departure_delay = st.number_input(
+            'Departure Delay (Minutes)',
+            min_value=-100,
+            max_value=2000,
+            value=0
+        )
+
+        if st.button('Predict Arrival Delay'):
+
+            regression_input = pd.DataFrame(
+                [[
+                    departure_delay,
+                    distance,
+                    month,
+                    day,
+                    day_of_week
+                ]],
+                columns=[
+                    'DEPARTURE_DELAY',
+                    'DISTANCE',
+                    'MONTH',
+                    'DAY',
+                    'DAY_OF_WEEK'
+                ]
+            )
+
+            predicted_delay = model_regression.predict(
+                regression_input
+            )[0]
+
+            st.info(
+                f'Predicted Arrival Delay: {predicted_delay:.2f} minutes'
+            )
