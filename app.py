@@ -489,35 +489,45 @@ with tab3:
 
     if prediction_type == 'Classification':
 
-        if st.button('Predict Flight Status'):
+    airline = st.selectbox(
+        'Airline',
+        sorted(df['AIRLINE'].dropna().unique())
+    )
 
-            classification_input = pd.DataFrame(
-                [[
-                    month,
-                    day,
-                    day_of_week,
-                    scheduled_departure,
-                    scheduled_time,
-                    distance
-                ]],
-                columns=[
-                    'MONTH',
-                    'DAY',
-                    'DAY_OF_WEEK',
-                    'SCHEDULED_DEPARTURE',
-                    'SCHEDULED_TIME',
-                    'DISTANCE'
-                ]
-            )
+    if st.button('Predict Flight Status'):
 
-            prediction = model_classification.predict(
-                classification_input
-            )[0]
+        model_features = (
+            model_classification
+            .get_booster()
+            .feature_names
+        )
 
-            if prediction == 1:
-                st.error('Prediction: Delayed')
-            else:
-                st.success('Prediction: On Time')
+        classification_input = pd.DataFrame(
+            0,
+            index=[0],
+            columns=model_features
+        )
+
+        classification_input.loc[0, 'MONTH'] = month
+        classification_input.loc[0, 'DAY'] = day
+        classification_input.loc[0, 'DAY_OF_WEEK'] = day_of_week
+        classification_input.loc[0, 'SCHEDULED_DEPARTURE'] = scheduled_departure
+        classification_input.loc[0, 'SCHEDULED_TIME'] = scheduled_time
+        classification_input.loc[0, 'DISTANCE'] = distance
+
+        airline_column = f'AIRLINE_{airline}'
+
+        if airline_column in classification_input.columns:
+            classification_input.loc[0, airline_column] = 1
+
+        prediction = model_classification.predict(
+            classification_input
+        )[0]
+
+        if prediction == 1:
+            st.error('Prediction: Delayed')
+        else:
+            st.success('Prediction: On Time')
 
 
     else:
