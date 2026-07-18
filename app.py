@@ -444,26 +444,13 @@ with tab3:
     col1, col2 = st.columns(2)
 
     with col1:
-        month = st.number_input(
-            'Month',
-            min_value=1,
-            max_value=12,
-            value=1
-        )
+    flight_date = st.date_input(
+        'Flight Date'
+    )
 
-        day = st.number_input(
-            'Day',
-            min_value=1,
-            max_value=31,
-            value=1
-        )
-
-        day_of_week = st.number_input(
-            'Day of Week',
-            min_value=1,
-            max_value=7,
-            value=1
-        )
+    month = flight_date.month
+    day = flight_date.day
+    day_of_week = flight_date.isoweekday()
 
     with col2:
         scheduled_departure = st.number_input(
