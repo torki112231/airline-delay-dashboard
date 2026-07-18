@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
+from datetime import date
 
 
 # PAGE CONFIGURATION
@@ -444,7 +445,11 @@ with tab3:
     col1, col2 = st.columns(2)
 
     with col1:
-        flight_date = st.date_input('Flight Date')
+        flight_date = st.date_input(
+            'Flight Date',
+            min_value=date.today(),
+            value=date.today()
+        )
 
         month = flight_date.month
         day = flight_date.day
