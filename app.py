@@ -443,38 +443,36 @@ with tab3:
 
     col1, col2 = st.columns(2)
 
-    with col1:
-    flight_date = st.date_input(
-        'Flight Date'
-    )
+   with col1:
+       flight_date = st.date_input('Flight Date')
+       month = flight_date.month
+       day = flight_date.day
+       day_of_week = flight_date.isoweekday()
+       
+   with col2:
+       scheduled_departure = st.number_input(
+           'Scheduled Departure',
+           min_value=0,
+           max_value=2359,
+           value=800
+       )
+       
+       scheduled_time = st.number_input(
+           'Scheduled Time (Minutes)',
+           min_value=1,
+           max_value=1000,
+           value=120
+       )
+       
+       distance = st.number_input(
+           'Distance',
+           min_value=1,
+           max_value=6000,
+           value=500
+       )
 
-    month = flight_date.month
-    day = flight_date.day
-    day_of_week = flight_date.isoweekday()
 
-    with col2:
-        scheduled_departure = st.number_input(
-            'Scheduled Departure',
-            min_value=0,
-            max_value=2359,
-            value=800
-        )
-
-        scheduled_time = st.number_input(
-            'Scheduled Time (Minutes)',
-            min_value=1,
-            max_value=1000,
-            value=120
-        )
-
-        distance = st.number_input(
-            'Distance',
-            min_value=1,
-            max_value=6000,
-            value=500
-        )
-
-    if prediction_type == 'Classification':
+if prediction_type == 'Classification':
 
     airline = st.selectbox(
         'Airline',
@@ -517,38 +515,38 @@ with tab3:
             st.success('Prediction: On Time')
 
 
-    else:
+else:
 
-        departure_delay = st.number_input(
-            'Departure Delay (Minutes)',
-            min_value=-100,
-            max_value=2000,
-            value=0
+    departure_delay = st.number_input(
+        'Departure Delay (Minutes)',
+        min_value=-100,
+        max_value=2000,
+        value=0
+    )
+
+    if st.button('Predict Arrival Delay'):
+
+        regression_input = pd.DataFrame(
+            [[
+                departure_delay,
+                distance,
+                month,
+                day,
+                day_of_week
+            ]],
+            columns=[
+                'DEPARTURE_DELAY',
+                'DISTANCE',
+                'MONTH',
+                'DAY',
+                'DAY_OF_WEEK'
+            ]
         )
 
-        if st.button('Predict Arrival Delay'):
+        predicted_delay = model_regression.predict(
+            regression_input
+        )[0]
 
-            regression_input = pd.DataFrame(
-                [[
-                    departure_delay,
-                    distance,
-                    month,
-                    day,
-                    day_of_week
-                ]],
-                columns=[
-                    'DEPARTURE_DELAY',
-                    'DISTANCE',
-                    'MONTH',
-                    'DAY',
-                    'DAY_OF_WEEK'
-                ]
-            )
-
-            predicted_delay = model_regression.predict(
-                regression_input
-            )[0]
-
-            st.info(
-                f'Predicted Arrival Delay: {predicted_delay:.2f} minutes'
-            )
+        st.info(
+            f'Predicted Arrival Delay: {predicted_delay:.2f} minutes'
+        )
