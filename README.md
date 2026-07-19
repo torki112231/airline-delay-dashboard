@@ -25,19 +25,17 @@ This project covers the complete data science workflow:
 
 ## 📂 Dataset
 
-**Source:** U.S. Department of Transportation Flight Delay Dataset (Kaggle)
+The project uses the US DOT Flight Delays dataset containing millions of domestic flight records.
 
-The dataset includes:
+| Dataset Stage | Rows | Columns |
+|---|---:|---:|
+| Original Dataset | 5,819,079 | 31 |
+| Cleaned Dataset | 5,714,008 | 32 |
+| Model Sample | 96,000 | 33 |
 
-- Airlines
-- Airports
-- Flight dates
-- Scheduled departure times
-- Flight distance
-- Departure delay
-- Arrival delay
+The original dataset contains more than 5.8 million U.S. domestic flight records. After removing cancelled and diverted flights, handling missing values, and merging airline and airport information, the cleaned dataset contained 5,714,008 records.
 
-Cancelled and diverted flights were removed during preprocessing, and airline and airport information was merged into the main dataset.
+To reduce training time while preserving seasonal representation, a balanced sample of 96,000 flights was created by selecting 8,000 flights from each month.
 
 ---
 
