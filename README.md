@@ -8,8 +8,7 @@ The project combines **Exploratory Data Analysis (EDA)**, **XGBoost models**, an
 
 ## 🌐 Live Demo
 
-[https://your-streamlit-app.streamlit.app/
-](https://airline-delay-dashboard-uzckqchivbogtd5wsghykr.streamlit.app/)
+[STREAMLIT](https://airline-delay-dashboard-uzckqchivbogtd5wsghykr.streamlit.app/)
 ---
 
 ## 🎯 Project Objectives
