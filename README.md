@@ -1,82 +1,108 @@
 # ✈️ Airline Delay Intelligence Dashboard
 
-An interactive data science project for exploring U.S. airline delay patterns and predicting flight outcomes using XGBoost models.
+An interactive data science project that explores U.S. airline delay patterns and predicts flight delays using machine learning.
 
-## Project Overview
+The project combines **Exploratory Data Analysis (EDA)**, **XGBoost models**, and an interactive **Streamlit dashboard** to better understand airline performance and flight delays.
 
-This project combines exploratory data analysis, machine learning, and an interactive Streamlit dashboard to:
+---
 
-- Explore delay patterns by airline, airport, and month.
-- Compare departure delay with arrival delay.
-- Classify flights as **On Time** or **Delayed**.
-- Estimate expected arrival delay in minutes.
-- Present results through a polished interactive dashboard.
+## 🌐 Live Demo
 
-## Dashboard Features
+https://your-streamlit-app.streamlit.app/
 
-### Overview
-- Total number of flights.
-- Number of airlines.
-- Average arrival delay.
-- Percentage of delayed flights.
-- Filterable flight records.
+---
 
-### Exploratory Data Analysis
-- Flights by airline.
-- Average arrival delay by airline.
-- Average arrival delay by month.
-- Departure delay vs. arrival delay.
-- Top origin airports by average delay.
-- Delayed vs. on-time flights.
-- Correlation heatmap.
+## 🎯 Project Objectives
 
-### Machine Learning
+This project covers the complete data science workflow:
 
-#### Classification
-The classification model predicts whether a flight is likely to be delayed by at least 15 minutes.
+- Data cleaning and preprocessing
+- Exploratory Data Analysis (EDA)
+- Interactive visualizations
+- Flight delay prediction using Machine Learning
+- Streamlit dashboard deployment
 
-Model inputs:
-- Flight date.
-- Airline.
-- Scheduled departure time.
-- Scheduled flight duration.
-- Flight distance.
+---
 
-Evaluation:
-- Accuracy.
-- Classification report.
-- Confusion matrix.
-- ROC curve and AUC.
+## 📂 Dataset
 
-#### Regression
-The regression model estimates arrival delay in minutes.
+**Source:** U.S. Department of Transportation Flight Delay Dataset (Kaggle)
 
-Model inputs:
-- Departure delay.
-- Flight distance.
-- Month.
-- Day.
-- Day of week.
+The dataset includes:
 
-Evaluation:
-- RMSE.
-- MAE.
-- R² score.
-- Actual vs. predicted plot.
+- Airlines
+- Airports
+- Flight dates
+- Scheduled departure times
+- Flight distance
+- Departure delay
+- Arrival delay
 
-## Technologies Used
+Cancelled and diverted flights were removed during preprocessing, and airline and airport information was merged into the main dataset.
 
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- XGBoost
-- Streamlit
-- Joblib
+---
 
-## Repository Structure
+## 📊 Exploratory Data Analysis
+
+The notebook includes visualizations such as:
+
+- Flights by airline
+- Average delay by airline
+- Monthly delay trends
+- Departure vs Arrival delay
+- Top delayed airports
+- Delay distribution
+- Correlation heatmap
+
+Each chart includes a short explanation of the findings.
+
+---
+
+## 🤖 Machine Learning
+
+Two XGBoost models were developed.
+
+### Flight Delay Classification
+
+Predicts whether a flight will arrive **15 minutes or more late**.
+
+**Features**
+
+- Flight date
+- Airline
+- Scheduled departure time
+- Scheduled flight duration
+- Flight distance
+
+---
+
+### Arrival Delay Regression
+
+Predicts the expected arrival delay in minutes.
+
+**Features**
+
+- Departure delay
+- Flight distance
+- Month
+- Day
+- Day of week
+
+---
+
+## 💻 Streamlit Dashboard
+
+The dashboard allows users to:
+
+- Filter flights by month and airline
+- Explore interactive charts
+- Predict flight status
+- Predict arrival delay
+- View prediction confidence
+
+---
+
+## 📁 Repository Structure
 
 ```text
 airline-delay-dashboard/
@@ -96,31 +122,56 @@ airline-delay-dashboard/
     └── MY_EDA_PROJECT.ipynb
 ```
 
-## Run the Project Locally
+---
 
-1. Clone the repository.
-2. Install the required packages:
+## 🚀 How to Run
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/torki112231/airline-delay-dashboard.git
+```
+
+2. Install the required packages
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the Streamlit application:
+3. Run the application
 
 ```bash
 streamlit run app.py
 ```
 
-## Dataset
+---
 
-The project uses the U.S. Department of Transportation flight delay dataset available on Kaggle. Cancelled and diverted flights were removed, missing values were handled, and airline and airport reference tables were merged into the main dataset.
+## 🛠️ Tools Used
 
-A balanced monthly sample was created for the classification model to reduce memory usage while maintaining representation across all months.
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- XGBoost
+- Streamlit
+- Joblib
+- Google Colab
 
-## Important Note
+---
 
-Predictions are most reliable when the entered values remain within realistic ranges similar to the training data. The dashboard restricts numeric inputs to practical values to reduce unrealistic predictions.
+## 🔍 Key Findings
 
-## Author
+- Flight delays vary noticeably across airlines.
+- Departure delay is the strongest indicator of arrival delay.
+- Delay patterns change throughout the year.
+- Machine learning can provide useful predictions using scheduled flight information.
 
-Developed by **Turki Abu-Haimed** as a data science and artificial intelligence boot camp project.
+---
+
+## 👨‍💻 Author
+
+**Turki**
+
+Data Science & Artificial Intelligence Bootcamp
