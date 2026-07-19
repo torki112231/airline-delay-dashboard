@@ -123,4 +123,4 @@ Predictions are most reliable when the entered values remain within realistic ra
 
 ## Author
 
-Developed by **Turki** as a data science and artificial intelligence project.
+Developed by **Turki Abu-Haimed** as a data science and artificial intelligence boot camp project.
