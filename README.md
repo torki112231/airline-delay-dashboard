@@ -171,6 +171,6 @@ streamlit run app.py
 
 ## 👨‍💻 Author
 
-**Turki**
+**Turki AbuHAimed**
 
 Data Science & Artificial Intelligence Bootcamp
